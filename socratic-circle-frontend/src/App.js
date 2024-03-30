@@ -3,12 +3,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavigationBar from './components/NavigationBar';
 import Login from './views/Login';
 import Homescreen from './views/Homescreen';
+import Teacher from './views/Teacher';
 
 function App() {
   return (
     <BrowserRouter>
       <NavigationBar />
       <Routes>
+      <Route exact path="/teacher" element={<Teacher />}></Route>
         <Route exact path="/login" element={<Login />}></Route>
         <Route exact path="/" element={<Homescreen />}></Route>
       </Routes>
