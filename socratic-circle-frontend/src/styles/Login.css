@@ -14,9 +14,9 @@
     align-items: center;
     width: 30rem;
     height: 20rem;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 10px;
-    background-color: white;
+    background-color: #d9f9ff;
 }
 
 .entry-box {
