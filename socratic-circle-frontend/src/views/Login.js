@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import '../styles/Login.css'
 
 const Login = () => {
 const [isLogin, setIsLogin] = useState(true);
@@ -9,10 +10,11 @@ const handleToggle = () => {
 };
 
 return (
-    <div>
+    <div className='login-menu'>
+        <div className='login-box'>
         {isLogin ? <h2>Login</h2> : <h2>Signup</h2>}
         <form>
-            <label>
+            <label className='entry-box'>
                 Email:
                 <input type="email" />
             </label>
@@ -34,6 +36,7 @@ return (
         <button onClick={handleToggle}>
             {isLogin ? 'Switch to Signup' : 'Switch to Login'}
         </button>
+        </div>
     </div>
 );
 }
