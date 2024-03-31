@@ -6,42 +6,35 @@ header('Access-Control-Allow-Credentials:true'); // Set whether sending cookies 
 
 require __DIR__ . "/inc/bootstrap.php";
 
-// header("derp")
-// exit()
-
-// echo "Hello world";
-
-// echo($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-// echo($uri)
 
 // CORS headers
 
 $uri = explode( '/', $uri );
 
-// echo("DERP");
+//print("hello");
 
-if ((isset($uri[3]) && $uri[3] != 'skewl') || !isset($uri[4])) {
+if ((isset($uri[2]) && $uri[2] != 'class') || !isset($uri[3])) {
 
 
-
+   // echo("yo");
     header("HTTP/1.1 404 Not Found");
 
     exit();
 
 }
 
-// echo("DERP");
+//echo("here");
+
+require PROJECT_ROOT_PATH . "/Controller/Api/ClassController.php";
+//echo("here2");
 
 
+$objFeedController = new ClassController();
 
-require PROJECT_ROOT_PATH . "/Controller/Api/UserController.php";
-
-$objFeedController = new UserController();
-
-$strMethodName = $uri[4] . 'Action';
+//echo("appended action");
+$strMethodName = $uri[3] . 'Action';
 
 $objFeedController->{$strMethodName}();
 
