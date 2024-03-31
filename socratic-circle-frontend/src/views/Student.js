@@ -42,63 +42,68 @@ const Student = () => {
   return (
     <div>
       <h1>Student</h1>
-      <button onClick={() => setIsPresenting(!isPresenting)}>
-        Toggle Presentation
-      </button>
-      {isPresenting ? (
-        <div>
-          <button onClick={toggleView}>Toggle View</button>
-          {view === "all" && (
-            <div>
-              <h2>Both Groups View</h2>
-              <div className="student-group-view">
-                {otherGroups.map((doc, index) => (
-                  <React.Fragment key={index}>
-                    <iframe
-                      className="student-iframe"
-                      title={`group ${doc.docIndex}`}
-                      src={doc.url}
-                    ></iframe>
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-          )}
-          {view === "single" && (
-            <>
-              <div className="student-single-container">
-                <h2>Single Doc View</h2>
-                <div className="student-single-view">
-                  <button onClick={() => handleDocButton("left")}>
-                    Previous
-                  </button>
+      <div className="student-view">
+        <h2>{docUrls[currGroup].groupName}</h2>
+        <button onClick={() => setIsPresenting(!isPresenting)}>
+          Toggle Presentation
+        </button>
+        {isPresenting ? (
+          <div>
+            <button onClick={toggleView}>Toggle View</button>
+            {view === "all" && (
+              <div>
+                <h2>Both Groups View</h2>
+                <div className="student-group-view">
                   {otherGroups.map((doc, index) => (
                     <React.Fragment key={index}>
-                      {currDocIndex === index && (
-                        <iframe
-                          className="student-iframe"
-                          title={`group ${doc.docIndex}`}
-                          src={doc.url}
-                        ></iframe>
-                      )}
+                      <iframe
+                        className="student-iframe"
+                        title={`group ${doc.docIndex}`}
+                        src={doc.url}
+                      ></iframe>
                     </React.Fragment>
                   ))}
-                  <button onClick={() => handleDocButton("right")}>Next</button>
                 </div>
               </div>
-            </>
-          )}
-        </div>
-      ) : (
-        <div>
-          <h2>Group {docUrls[currGroup].groupName}</h2>
-          <iframe
-            className="student-iframe"
-            title={`group ${docUrls[currGroup].docIndex}`}
-            src={docUrls[currGroup].url}
-          ></iframe>
-        </div>
-      )}
+            )}
+            {view === "single" && (
+              <>
+                <div className="student-single-container">
+                  <h2>Single Doc View</h2>
+                  <div className="student-single-view">
+                    <button onClick={() => handleDocButton("left")}>
+                      Previous
+                    </button>
+                    {otherGroups.map((doc, index) => (
+                      <React.Fragment key={index}>
+                        {currDocIndex === index && (
+                          <iframe
+                            className="student-iframe"
+                            title={`group ${doc.docIndex}`}
+                            src={doc.url}
+                          ></iframe>
+                        )}
+                      </React.Fragment>
+                    ))}
+                    <button onClick={() => handleDocButton("right")}>
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        ) : (
+          <div>
+            <h2>Current Group View</h2>
+            <iframe
+              className="student-iframe"
+              title={`group ${docUrls[currGroup].docIndex}`}
+              src={docUrls[currGroup].url}
+            ></iframe>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
