@@ -102,6 +102,26 @@ class UserController extends BaseController
 
     }
 
+    public function logoutAction(){
+        $strErrorDesc = '';
+        $requestMethod = $_SERVER["REQUEST_METHOD"];
+        if(isset($_GET['username'])) {
+            $leusername = $_GET['username'];
+            // $lepassword = $_GET['password'];
+            $userModel = new UserModel();
+            if (strtoupper($requestMethod) == 'GET') {
+                try {
+                    $arrUsers = $userModel->logoutModel($leusername);
+                    $responseData = json_encode($arrUsers);
+                } catch (Error $e) {
+                    $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
+                    $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
+                }
+            } 
+        }
+    }
+
+
     public function loginAction()
     {
         $strErrorDesc = '';
@@ -196,16 +216,19 @@ class UserController extends BaseController
     public function editAction()
     {
             
+            $userModel = new UserModel();
+
             $strErrorDesc = '';
             $requestMethod = $_SERVER["REQUEST_METHOD"];
             $out_value = "";
-            $id = $_GET['id'];
             $username = $_GET['username'];
-            $artist = $_GET['artist'];
-            $song = $_GET['song'];
-            $rating = $_GET['rating'];
+            if (isset( $_GET['points'])){
+                $userModel->editUmodel($username, "points", $_GET['points'],);
+            }
+            if (isset( $_GET['classes'])){
+                $userModel->editUmodel($username, "classes", $_GET['classes'],);
+            }
             echo "I'm here";
-            $userModel = new UserModel();
             if (strtoupper($requestMethod) == 'PUT') {
             try {
                 echo "test UC 1";
