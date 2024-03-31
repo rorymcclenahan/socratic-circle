@@ -13,6 +13,7 @@ function NavigationBar() {
           <Nav className="navbar-buttons">
             <Nav.Link className='navbar-links' href="/login">Login</Nav.Link>
             <Nav.Link className='navbar-links' href="/teacher">Teacher</Nav.Link>
+            <Nav.Link className='navbar-links' href="/student">Student</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
