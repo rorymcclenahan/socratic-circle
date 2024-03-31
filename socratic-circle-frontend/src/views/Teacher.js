@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/iframe.css";
 import TeacherDocViewer from "../components/TeacherDocViewer";
+import TeacherManageGroups from "../components/TeacherManageGroups";
 
 const Teacher = () => {
   const [showTeacherDocViewer, setShowTeacherDocViewer] = React.useState(true);
@@ -18,6 +19,9 @@ const Teacher = () => {
           <TeacherDocViewer />
         </div>
       )}
+      <div>
+        <TeacherManageGroups />
+      </div>
     </div>
   );
 };
