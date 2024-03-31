@@ -109,6 +109,46 @@ class Database
 }
 }
 
+
+public function classAdd($student, $author, $coursename) {
+    $strErrorDesc = '';
+    // echo 'very first check'; 
+    //echo "DATABASE AUTHOR IS"; 
+    //echo "$author"; 
+    try {
+    // echo "TRYING AUTHOR IS"; 
+    //echo "$author \n"; 
+    $connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
+    // echo $classname;
+    $student = $connection->real_escape_string($student);
+    $author = $connection->real_escape_string($author);
+    $coursename = $connection->real_escape_string($coursename);
+
+    //echo $prefixed_class; 
+    // echo $classname;
+    $sql = "INSERT INTO CLASS$coursename (username, class_points, groups, teacher)
+    SELECT '$student', 0, 0, teacher
+    FROM CLASS$coursename
+    WHERE teacher = '$author'
+    LIMIT 1";
+      // echo $sql;
+      // echo "made DB \n";
+      // echo "author after sql is"; 
+      // echo $author; 
+      $stmt = $connection->prepare($sql);
+      
+     //  echo "CHECK 1"; 
+      $stmt->execute();
+      // echo "CHECK 2"; 
+      $result = $stmt->get_result();
+      // echo 'if we get here then the table should be created'; 
+    } catch(Exception $e) {
+       // echo "attempt -1"; 
+        throw New Exception( $e->getMessage() );
+
+}
+}
+
 #create class named datatable named classname and then add students one at a time 
 
 

@@ -17,7 +17,7 @@ class ClassModel extends Database
         return $this->classCreate($coursename, $author); 
     }
 
-     public function addClass($username, $author, $coursename){
-         return $this->classAdd($username, $author, $coursename); 
+     public function addClass($student, $author, $coursename){
+         return $this->classAdd($student, $author, $coursename); 
      }
 }
