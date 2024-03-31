@@ -34,6 +34,130 @@ class Database
         return false;
     }
 
+
+    public function classCreate($classname, $author) {
+        $strErrorDesc = '';
+        // echo 'very first check'; 
+        //echo "DATABASE AUTHOR IS"; 
+        //echo "$author"; 
+        try {
+        //echo "TRYING AUTHOR IS"; 
+        //echo "$author \n"; 
+        $connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
+        // echo $classname;
+        $classname = $connection->real_escape_string($classname);
+        $namepre = "CLASS"; 
+        $prefixed_class = $namepre . $classname;  
+        //echo $prefixed_class; 
+        // echo $classname;
+        $sql = "CREATE TABLE IF NOT EXISTS $prefixed_class (
+            `username` varchar(255) NOT NULL,
+            `class_points` int(255) NOT NULL,
+            `groups` varchar(255) NOT NULL,
+            `teacher` varchar(255) NOT NULL
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci" ;
+          // echo $sql;
+          // echo "made DB \n";
+          // echo "author after sql is"; 
+          // echo $author; 
+          $stmt = $connection->prepare($sql);
+          
+          // echo "check 1"; 
+          $stmt->execute();
+          // echo "check 2"; 
+          $result = $stmt->get_result();
+           //echo 'if we get here then the table should be created'; 
+        } catch(Exception $e) {
+           // echo "attempt -1"; 
+            throw New Exception( $e->getMessage() );
+
+    }
+
+    try {
+      //  echo "attempt 1";
+      //  echo "author at top of second try is"; 
+      //  echo $author;  
+        $connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
+        $count_query = "SELECT COUNT(*) FROM $prefixed_class";
+       // echo "attempt 2";
+        $result = $connection->query($count_query);
+        $row = $result->fetch_row();
+      //  echo "attempt 3"; 
+        $count = $row[0];
+    
+        // If the table is empty, add the teacher to its first row 
+        if ($count == 0) {
+       // echo "the table is empty"; 
+       // echo $author; 
+        $new_sql = "INSERT INTO $prefixed_class (username, class_points, groups, teacher)
+        SELECT '$author', '0', '0', '$author'";
+        // echo $author; 
+        // echo "right after insert"; 
+          // echo $sql;
+          // echo "made DB \n";
+          $stmt = $connection->prepare($new_sql);
+          $stmt->execute();
+         // echo "end of if"; 
+
+} else {
+    throw New Exception("Somthing went wrong with the data being prepopulated");
+}
+} catch(Exception $e) {
+            
+    //echo "exception 2 ";
+   throw New Exception( $e->getMessage() );
+}
+}
+
+#create class named datatable named classname and then add students one at a time 
+
+
+    public function groupCreate($coursename) {
+        $strErrorDesc = '';
+
+            // Query users with student_account value of 1
+            $checkSql = "SELECT * FROM users WHERE student_account = 1";
+            $users = $this->select($checkSql);
+        
+            // Shuffle the array of users randomly
+            shuffle($users);
+        
+            // Divide users into three groups
+            $groupSize = ceil(count($users) / 3);
+            $groups = array_chunk($users, $groupSize);
+        
+            // Start a transaction
+            $this->connection->begin_transaction();
+        
+            try {
+                // Update the database to assign users to groups
+                foreach ($groups as $index => $group) {
+                    foreach ($group as $user) {
+                        // Update user's group_id in the database
+                        $updateSql = "UPDATE users SET group_id = ? WHERE user_id = ?";
+                        $stmt = $this->connection->prepare($updateSql);
+                        if ($stmt === false) {
+                            $strErrorDesc = 'Failed to update group_id.';
+                        }
+                        $group_id = $index + 1;
+                        $stmt->bind_param("ii", $group_id, $user['user_id']);
+                        if (!$stmt->execute()) {
+                            $strErrorDesc = 'Failed to update group_id.';
+                        }
+                        $stmt->close();
+                    }
+                }
+        
+                // Commit transaction
+                $this->connection->commit();
+            } catch (Exception $e) {
+                // Rollback transaction on error
+                $this->connection->rollback();
+                throw new Exception("Error creating groups: " . $e->getMessage());
+            }
+        }
+
+
     public function selectDupe($query = "" , $params = [])
     {
         try {

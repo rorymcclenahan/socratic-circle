@@ -1,15 +1,26 @@
-CREATE TABLE `socratic`.`users` (`username` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `classes` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `points` INT(255) NOT NULL , PRIMARY KEY (`username`(255))) ENGINE = InnoDB;
 
-CREATE TABLE `users` (
+# SQL for table that associates users with groups 
+CREATE TABLE `user_group` (
   `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `classes` varchar(255) NOT NULL,
-  `points` int(255) NOT NULL
+  `group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `users` ADD `loggedin` BOOLEAN NOT NULL AFTER `points`;
+ALTER TABLE `user_group`
+  ADD PRIMARY KEY (`username`,`group_id`),
+  ADD KEY `group_id` (`group_id`);
+  ALTER TABLE `user_group`
+  ADD CONSTRAINT `user_group_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`),
+  ADD CONSTRAINT `user_group_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`);
+COMMIT;
 
-
-
-CREATE TABLE `socratic`.`comp_332_s2024_01` (`username` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `clearance` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `points` INT(255) NOT NULL , `groups` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL ) ENGINE = InnoDB;
-
+# SQL for table with information for groups 
+CREATE TABLE `groups` (
+  `group_id` int(11) NOT NULL,
+  `group_name` varchar(255) DEFAULT NULL,
+  `group_points` int(11) DEFAULT 0,
+  `class` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`group_id`);
+  ALTER TABLE `groups`
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
