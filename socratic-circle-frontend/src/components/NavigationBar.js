@@ -1,15 +1,15 @@
 import React from 'react'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import '../styles/NavigationBar.css';
 
 function NavigationBar() {
   return (
     <div>
         <Navbar className="navbar" >
-                <Navbar.Brand href="/">Socratic Circle</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Brand className='navbar-title' href="/">Socratic Circle</Navbar.Brand>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="navbartitle">
-                        <Nav.Link href="/login">Login</Nav.Link>
+                    <Nav className="navbar-buttons">
+                        <Nav.Link className='navbar-links' href="/login">Login</Nav.Link>
                         {/* <Nav.Link href="/favorites">Favorites</Nav.Link>
                         <Nav.Link href="/newsignup">Sign Up</Nav.Link> */}
                         {/* <NavDropdown title="Account" id="basic-nav-dropdown">
