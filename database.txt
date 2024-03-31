@@ -1,0 +1,15 @@
+CREATE TABLE `socratic`.`users` (`username` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `classes` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `points` INT(255) NOT NULL , PRIMARY KEY (`username`(255))) ENGINE = InnoDB;
+
+CREATE TABLE `users` (
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `classes` varchar(255) NOT NULL,
+  `points` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+ALTER TABLE `users` ADD `loggedin` BOOLEAN NOT NULL AFTER `points`;
+
+
+
+CREATE TABLE `socratic`.`comp_332_s2024_01` (`username` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `clearance` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `points` INT(255) NOT NULL , `groups` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL ) ENGINE = InnoDB;
+
