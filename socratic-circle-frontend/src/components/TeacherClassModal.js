@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import TeacherClassEditor from "./TeacherClassEditor";
+import "../styles/Teacher.css";
 
 const TeacherClassModal = () => {
   const [showClassEditor, setShowClassEditor] = useState(false);
@@ -8,10 +9,10 @@ const TeacherClassModal = () => {
   const toggleClassEditor = () => {
     setShowClassEditor(!showClassEditor);
   };
-  
+
 
   return (
-    <div>
+    <div className="teacher-class-modal">
       <div>
         <div>Teacher Class Editor</div>
         <button onClick={toggleClassEditor}>Toggle Class Editor</button>

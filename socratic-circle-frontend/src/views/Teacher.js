@@ -3,6 +3,9 @@ import "../styles/iframe.css";
 import TeacherDocViewer from "../components/TeacherDocViewer";
 import TeacherGroupModal from "../components/TeacherGroupModal";
 import TeacherClassModal from "../components/TeacherClassModal";
+import { useState } from "react";
+import "../styles/Teacher.css";
+import { Button } from "react-bootstrap";
 
 const Teacher = () => {
   const [showTeacherDocViewer, setShowTeacherDocViewer] = React.useState(false);
@@ -13,28 +16,34 @@ const Teacher = () => {
 
   const toggleTeacherDocViewer = () => {
     setShowTeacherDocViewer(!showTeacherDocViewer);
+    setShowTeacherGroupModal(false);
+    setShowTeacherClassModal(false);
   };
 
   const toggleTeacherGroupModal = () => {
     setShowTeacherGroupModal(!showTeacherGroupModal);
+    setShowTeacherDocViewer(false);
+    setShowTeacherClassModal(false);
   };
 
   const toggleTeacherClassModal = () => {
     setShowTeacherClassModal(!showTeacherClassModal);
+    setShowTeacherDocViewer(false);
+    setShowTeacherGroupModal(false);
   };
 
   return (
-    <div>
-      <div className="toggle-view-buttons">
-        <button onClick={toggleTeacherDocViewer}>
+    <div className="teacher-view">
+      <div className="toggle-view-button-list">
+        <Button onClick={toggleTeacherDocViewer}>
           Toggle Teacher Doc Viewer
-        </button>
-        <button onClick={toggleTeacherGroupModal}>
+        </Button>
+        <Button onClick={toggleTeacherGroupModal}>
           Toggle Teacher Manage Groups
-        </button>
-        <button onClick={toggleTeacherClassModal}>
+        </Button>
+        <Button onClick={toggleTeacherClassModal}>
           Toggle Teacher Manage Class
-        </button>
+        </Button>
       </div>
 
       {showTeacherDocViewer && (

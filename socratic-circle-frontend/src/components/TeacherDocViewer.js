@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/Teacher.css";
 
 const TeacherDocViewer = (props) => {
   // TODO: Implement API call to backend to get the teacher's documents
@@ -31,7 +32,7 @@ const TeacherDocViewer = (props) => {
     }
   };
   return (
-    <div>
+    <div className="teacher-doc-view">
       {view === "all" && (
         <div>
           <h2>All Docs View</h2>

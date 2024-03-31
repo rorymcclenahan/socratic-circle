@@ -1,0 +1,31 @@
+.toggle-view-button-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 50px; /* Add border-radius property to make buttons more round */
+    margin: 1rem;
+}
+
+.teacher-view {
+    margin-bottom: 10rem;
+}
+
+.teacher-doc-view {
+    padding: 5rem;
+    padding-top: 2rem;
+    border: solid 1px white;
+    background-color: #d9f9ff;
+    border-radius: 30px;
+}
+
+.teacher-class-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px white;
+    background-color: #d9f9ff;
+    border-radius: 30px;
+    padding: 2rem;
+    margin: 2rem;
+}
