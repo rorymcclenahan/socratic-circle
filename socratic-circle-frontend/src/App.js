@@ -4,9 +4,12 @@ import NavigationBar from './components/NavigationBar';
 import Login from './views/Login';
 import Homescreen from './views/Homescreen';
 import Teacher from './views/Teacher';
+import React from 'react';
+import './App.css';
 
 function App() {
   return (
+    <div className="App">
     <BrowserRouter>
       <NavigationBar />
       <Routes>
@@ -15,6 +18,7 @@ function App() {
         <Route exact path="/" element={<Homescreen />}></Route>
       </Routes>
     </BrowserRouter>
+    </div>
   );
 }
 
