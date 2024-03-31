@@ -18,6 +18,11 @@ class UserModel extends Database
 
     }
 
+    public function logoutModel($username){
+        return $this->logout("SELECT * FROM users WHERE username = ?", ["s", $username]);
+
+    }
+
     public function loginUsername($username, $password){
         
         return $this->userLogin($username, $password);
@@ -67,6 +72,12 @@ class UserModel extends Database
     {
         // echo "yoooooooo";
         return $this->delete("DELETE FROM ratings WHERE username = ? AND song = ? and artist = ?", ["sss", $username, $song, $artist]);
+    }
+
+    public function editUmodel($username, $field, $info){
+        echo "Pass Operational!";
+        // return $this->editSong($id, $username, $artist, $song, $rating);
+        return $this->editUser($username, $field, $info);
     }
 
     public function editRatingPASS($id, $username, $artist, $song, $rating){

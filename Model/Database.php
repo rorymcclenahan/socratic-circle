@@ -108,13 +108,36 @@ class Database
 
     }
 
+    public function logout($sql, $params =[]){
+
+        // $stmt = $this->connection->prepare( $query );
+            // Bind the parameter and execute the statement.
+            $stmt=$this->executeStatement($sql, $params);
+            // Get the result and fetch the data.
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            if (!$row) {
+                echo "Username doesn't exist :/";
+            } else {
+                // if (password_verify($password, $row['password'])) {
+                    $this->editSong("UPDATE users SET loggedin = 0 WHERE username = ?", $params);
+                    // session_destroy();
+                    // echo('PHPSESSID: ' . session_id($_GET['session_id']));
+                    // $_SESSION['username'] = $username;
+                    // $_SESSION["loggedin"] = true;
+                    echo ("we outta here");
+                    return "POGGERS";
+                // } else {
+                    // $error = "Passwords do not match :/";
+                    // echo $error;
+                // }
+            }
+            // Close the prepared statement.
+            $stmt->close();
+        // Close SQL connection.
+    }
+
     public function userLogin($username, $password){
-
-    // private function executeStatement($query = "" , $params = [])
-
-    // $stmt = $this->connection->prepare( $query );
-        // Create a prepared statement to select data using parameters.
-        // $sql_query = "SELECT * FROM users WHERE username = ?";
         // Bind the parameter and execute the statement.
         $stmt=$this->executeStatement("SELECT * FROM users WHERE username = ?", ["s", $username]);
         // Get the result and fetch the data.
@@ -141,7 +164,6 @@ class Database
         // Close the prepared statement.
         $stmt->close();
     // Close SQL connection.
-    $connection->close();
 }
 
 public function emailLogin($email, $password){
@@ -197,11 +219,73 @@ $connection->close();
 
     }
 
+    public function editUser($username, $field, $info){
+        
+        try {
+            if ($field == "points"){
+                $stmt=$this->executeStatement("SELECT * FROM users WHERE username = ?", ["s", $username]);
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                $points = $row['points'];
+                $points = $points+$info;
+                // $row = $result->fetch_assoc();
+                $this->editSong("UPDATE users SET points = ? WHERE username = ?", ["is", $points, $username]);
+            }
+            if ($field == "classes"){
+                $stmt=$this->executeStatement("SELECT * FROM users WHERE username = ?", ["s", $username]);
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                $classes = $row['classes'];
+                $classes = $classes. ", ". $info;
+                $this->editSong("UPDATE users SET classes = ? WHERE username = ?", ["ss", $classes, $username]);
+            }
+            // OMG THIS WORKED BRUH
+            
+            // echo("fart ass");
+            // echo ($params[0]);
+            // echo ($params[1]);
+            // echo ($params[2]);
+            // echo("fart ass");
+               // if ($field == "points"){
+            //     $userModel->editUmodel("UPDATE users SET points = ? WHERE username = ?", ["is", $_GET['points'], $username]);
+            // }
+            // if ($field == "classes"){
+            //     $userModel->editUmodel("UPDATE users SET classes = ? WHERE username = ?", ["ss", $_GET['classes'], $username]);
+            // }
+
+
+            // $stmt=$this->executeStatement($sql, $params);
+            
+            echo "success";
+            $stmt->close();
+        
+              
+            if ( mysqli_connect_errno()) {
+
+                throw new Exception("Could not connect to database.");   
+
+            }
+
+        } catch (Exception $e) {
+
+            throw new Exception($e->getMessage());   
+
+        }
+    
+    }
+
     // This functions ships the data to SQL and therefore writes to the database!
         public function editSong($sql, $params = []){
         try {
             // OMG THIS WORKED BRUH
             
+            echo("fart ass");
+            echo ($params[0]);
+            echo ($params[1]);
+            echo ($params[2]);
+            echo("fart ass");
+
+
             $stmt=$this->executeStatement($sql, $params);
             
             echo "success";
