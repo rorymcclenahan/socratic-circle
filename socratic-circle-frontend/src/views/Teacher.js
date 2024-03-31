@@ -1,12 +1,46 @@
-import React from 'react'
+import React from "react";
+import "../styles/iframe.css";
 
 const Teacher = () => {
   return (
     <div>
-        <h1>Teacher View</h1>
-        <iframe src="https://docs.google.com/document/d/e/2PACX-1vSm178Zkkqw-7aDrFo2C1sW2P8Olc_2ZVb-vis6s10kJusGEBfqYfdEx7RkEGwS0TpIBimW-i3-zeAl/pub?embedded=true"></iframe>
+      <h1>Teacher View</h1> {/* temp docs */}
+      <div className="Teacher-Doc-Container">
+        <iframe
+          className="Teacher-Iframe"
+          title="group A"
+          src="https://docs.google.com/document/d/1OulQL0EtHAiTl7DEmLF77ApexEVsIQlwWdWr-4UQfhw/edit?usp=sharing"
+        ></iframe>
+        <iframe
+          className="Teacher-Iframe"
+          title="group B"
+          src="https://docs.google.com/document/d/1RqCdbj0udAM8-uOvh9y9Os_PIohalCiHnd1mBq8hPY0/edit?usp=sharing"
+        ></iframe>
+        <iframe
+          className="Teacher-Iframe"
+          title="group B"
+          src="https://docs.google.com/document/d/1Lvi6oYtJeeFxNA-JaYRVp1O5rpnWbTMqHquvfGBV5Uc/edit?usp=sharing"
+        ></iframe>
+      </div>
+      <div className="Teacher-Doc-Container">
+        <iframe
+          className="Teacher-Iframe"
+          title="group A"
+          src="https://docs.google.com/document/d/1OulQL0EtHAiTl7DEmLF77ApexEVsIQlwWdWr-4UQfhw/edit?usp=sharing"
+        ></iframe>
+        <iframe
+          className="Teacher-Iframe"
+          title="group B"
+          src="https://docs.google.com/document/d/1RqCdbj0udAM8-uOvh9y9Os_PIohalCiHnd1mBq8hPY0/edit?usp=sharing"
+        ></iframe>
+        <iframe
+          className="Teacher-Iframe"
+          title="group B"
+          src="https://docs.google.com/document/d/1Lvi6oYtJeeFxNA-JaYRVp1O5rpnWbTMqHquvfGBV5Uc/edit?usp=sharing"
+        ></iframe>
+        </div>
     </div>
-  )
-}
+  );
+};
 
-export default Teacher
+export default Teacher;

@@ -1,0 +1,11 @@
+.Teacher-Iframe {
+    height: 500px;
+    width: auto;
+    margin: 20px;
+}
+.Teacher-Doc-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
