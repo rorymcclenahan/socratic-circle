@@ -6,62 +6,36 @@ header('Access-Control-Allow-Credentials:true'); // Set whether sending cookies 
 
 class Database
 
-
 {
-
     protected $connection = null;
-
     public function __construct()
-
     {
-
         try {
-
             $this->connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
-
-    	
-
             if ( mysqli_connect_errno()) {
-
                 throw new Exception("Could not connect to database.");   
-
             }
-
         } catch (Exception $e) {
-
             throw new Exception($e->getMessage());   
-
         }			
-
     }
 
     public function select($query = "" , $params = [])
-
     {
-
         try {
             $connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
             $stmt = $this->executeStatement( $query , $params );
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);				
-
             $stmt->close();
-
             return $result;
-
         } catch(Exception $e) {
-            
             throw New Exception( $e->getMessage() );
-
         }
-
         return false;
-
     }
 
     public function selectDupe($query = "" , $params = [])
-
     {
-
         try {
             $connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
             if($stmt = mysqli_prepare($connection, $query)){
@@ -90,7 +64,6 @@ class Database
     public function selectDupeAdd($query = "" , $params = [])
 
     {
-
         try {
             $connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
             if($stmt = mysqli_prepare($connection, $query)){
@@ -119,10 +92,9 @@ class Database
     public function create($query = "" , $params = [])
 
     {
-
         try {
-            echo "ooga";
-            echo $params[1];
+            // echo "ooga";
+            // echo $params[1];
             $stmt = $this->executeStatement( $query , $params );
             $result = $stmt->get_result();				
             $stmt->close();
@@ -137,13 +109,14 @@ class Database
     }
 
     public function userLogin($username, $password){
-        $connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
+
+    // private function executeStatement($query = "" , $params = [])
+
+    // $stmt = $this->connection->prepare( $query );
         // Create a prepared statement to select data using parameters.
-        $sql_query = "SELECT * FROM users WHERE username = ?";
-        $stmt = $connection->prepare($sql_query);
+        // $sql_query = "SELECT * FROM users WHERE username = ?";
         // Bind the parameter and execute the statement.
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
+        $stmt=$this->executeStatement("SELECT * FROM users WHERE username = ?", ["s", $username]);
         // Get the result and fetch the data.
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
@@ -151,6 +124,7 @@ class Database
             echo "Username doesn't exist :/";
         } else {
             if (password_verify($password, $row['password'])) {
+                $this->editSong("UPDATE users SET loggedin = 1 WHERE username = ?", ["s", $username]);
                 session_start();
                 // echo('PHPSESSID: ' . session_id($_GET['session_id']));
                 $_SESSION['username'] = $username;
@@ -171,13 +145,9 @@ class Database
 }
 
 public function emailLogin($email, $password){
-    $connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
     // Create a prepared statement to select data using parameters.
-    $sql_query = "SELECT * FROM users WHERE email = ?";
-    $stmt = $connection->prepare($sql_query);
     // Bind the parameter and execute the statement.
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
+    $stmt=$this->executeStatement("SELECT * FROM users WHERE email = ?", ["s", $email]);
     // Get the result and fetch the data.
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
@@ -185,12 +155,11 @@ public function emailLogin($email, $password){
         echo "Email doesn't exist :/";
     } else {
         if (password_verify($password, $row['password'])) {
+            $this->editSong("UPDATE users SET loggedin = 1 WHERE email = ?", ["s", $email]);
             session_start();
             // echo('PHPSESSID: ' . session_id($_GET['session_id']));
-            $_SESSION['username'] = "BOB";
+            $_SESSION['username'] = $row['username'];
             $_SESSION["loggedin"] = true;
-            // echo "\n";
-            // echo $_SESSION['username'];
             echo ("we logged in cuh");
             return "POGGERS";
         } else {
@@ -210,7 +179,6 @@ $connection->close();
     {
 
         try {
-        
             $conn = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
             $stmt = mysqli_prepare($conn, $sql);
             $stmt->bind_param(...$params);
@@ -233,11 +201,9 @@ $connection->close();
         public function editSong($sql, $params = []){
         try {
             // OMG THIS WORKED BRUH
-            $conn = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
-            $stmt = mysqli_prepare($conn, $sql);
-            $stmt->bind_param(...$params);
-            mysqli_stmt_execute($stmt);
-        		
+            
+            $stmt=$this->executeStatement($sql, $params);
+            
             echo "success";
             $stmt->close();
             // $this->connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
@@ -289,31 +255,21 @@ $connection->close();
     private function executeStatement($query = "" , $params = [])
 
     {
-
         try {
-
             $stmt = $this->connection->prepare( $query );
-
             if($stmt === false) {
-
                 throw New Exception("Unable to do prepared statement: " . $query);
-
             }
 
             if( $params ) {
-
                 $stmt->bind_param(...$params);
-
             }
 
             $stmt->execute();
-
             return $stmt;
 
         } catch(Exception $e) {
-
             throw New Exception( $e->getMessage() );
-
         }	
 
     }

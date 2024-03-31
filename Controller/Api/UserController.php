@@ -135,7 +135,7 @@ class UserController extends BaseController
         } 
     }
 
-    
+
     }
     public function addAction()
     {
@@ -232,10 +232,6 @@ class UserController extends BaseController
             $leusername = $_GET['username'];
             $lepassword = $_GET['password'];
             $leemail = $_GET['email'];
-
-
-   
-            // $intLimit = 10;
 
         } catch (Error $e) {
             $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';

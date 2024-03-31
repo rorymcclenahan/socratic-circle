@@ -36,7 +36,7 @@ class UserModel extends Database
 
     public function addSong($username, $song, $artist, $rating){
       
-    $exists = $this->selectDupeAdd("SELECT * FROM ratings WHERE username = ? AND song = ? AND artist = ?", ["sss", $username, $song, $artist]);
+    $exists = $this->selectDupeAdd("SELECT * FROM users WHERE username = ? AND email = ? AND artist = ?", ["sss", $username, $song, $artist]);
     // echo "huh?";
         if (gettype($exists) == gettype("hello")){
             echo "already submitted";
@@ -46,7 +46,7 @@ class UserModel extends Database
         {
         // $password_hash =  password_hash($password, PASSWORD_DEFAULT);
             echo "trying to add";
-            return $this->create("INSERT INTO ratings (username, song, artist, rating) VALUES (?, ?, ?, ?)", ["sssi", $username, $song, $artist, $rating]);
+            return $this->create("INSERT INTO users (username, password, email, classes, points, loggedin) VALUES (?, ?, ?, ?, ?, ?)", ["ssssii", $username, $password, $email, "", 0, 0]);
         }
     }
     public function createUsers($username, $password, $email){
@@ -58,7 +58,8 @@ class UserModel extends Database
         else 
         {
         $password_hash =  password_hash($password, PASSWORD_DEFAULT);
-            return $this->create("INSERT INTO users (username, password, email, classes, points) VALUES (?, ?, ?, ?, ?)", ["ssssi", $username, $password_hash, $email, "", 0]);
+            return $this->create("INSERT INTO users (username, password, email, classes, points, loggedin) VALUES (?, ?, ?, ?, ?, ?)", ["ssssii", $username, $password_hash, $email, "", 0, 0]);
+            // return $this->create("INSERT INTO users (username, password, email, classes, points, loggedin) VALUES (?, ?, ?, ?, ?)", ["ssssi", $username, $password_hash, $email, "", 0, 0]);
         }
     }
     // Prepares Data for usage in 'editSong' and 'deleteSong'
