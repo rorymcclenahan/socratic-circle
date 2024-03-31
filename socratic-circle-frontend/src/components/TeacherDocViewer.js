@@ -36,38 +36,44 @@ const TeacherDocViewer = (props) => {
       {view === "all" && (
         <div>
           <h2>All Docs View</h2>
-          {docUrls.map((doc, index) => (
-            <React.Fragment key={index}>
-              <iframe
-                className="teacher-iframe"
-                title={`group ${doc.docIndex}`}
-                src={doc.url}
-              ></iframe>
-            </React.Fragment>
-          ))}
+          <div className="teacher-group-view">
+            {docUrls.map((doc, index) => (
+              <React.Fragment key={index}>
+                <iframe
+                  className="teacher-iframe-group"
+                  title={`group ${doc.docIndex}`}
+                  src={doc.url}
+                ></iframe>
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       )}
       {view === "single" && (
         <>
           <div>
             <h2>Single Doc View</h2>
-            <button onClick={() => handleDocButton("left")}>Previous</button>
+            <div className="teacher-single-view">
+              <button onClick={() => handleDocButton("left")}>Previous</button>
 
-            {docUrls.map((doc, index) => (
-              <React.Fragment key={index}>
-                {currDocIndex === index && (
-                  <iframe
-                    className="teacher-iframe"
-                    title={`group ${doc.docIndex}`}
-                    src={doc.url}
-                  ></iframe>
-                )}
-              </React.Fragment>
-            ))}
+              {docUrls.map((doc, index) => (
+                <React.Fragment key={index}>
+                  {currDocIndex === index && (
+                    <iframe
+                      className="teacher-iframe"
+                      title={`group ${doc.docIndex}`}
+                      src={doc.url}
+                    ></iframe>
+                  )}
+                </React.Fragment>
+              ))}
 
-            <button onClick={() => handleDocButton("right")}>Next</button>
-            {/* display currDocIndex */}
-            <p>{currDocIndex}</p>
+              <button onClick={() => handleDocButton("right")}>Next</button>
+            </div>
+            {/* display current group */}
+            <div className="teacher-current-group">
+              <p>{docUrls[currDocIndex].groupName}</p>
+            </div>
           </div>
           <div className="teacher-doc-buttons">
             {docUrls.map((doc, index) => (
@@ -78,8 +84,8 @@ const TeacherDocViewer = (props) => {
           </div>
         </>
       )}
-        <button onClick={() => setView("all")}>All Docs View</button>
-        <button onClick={() => setView("single")}>Single Doc View</button>
+      <button onClick={() => setView("all")}>All Docs View</button>
+      <button onClick={() => setView("single")}>Single Doc View</button>
     </div>
   );
 };

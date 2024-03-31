@@ -29,3 +29,37 @@
     padding: 2rem;
     margin: 2rem;
 }
+
+.teacher-iframe {
+    width: 100vh;
+    height: 90vh;
+    border: none;
+    margin: 2rem;
+}
+
+.teacher-group-view {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+
+.teacher-iframe-group {
+    width: 55vh;
+    height: 90vh;
+    border: none;
+    margin: 2rem;
+}
+
+.teacher-single-view {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
