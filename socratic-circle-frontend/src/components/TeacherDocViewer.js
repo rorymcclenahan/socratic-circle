@@ -64,26 +64,3 @@ return (
 
 export default TeacherDocViewer;
 
-
-// {docUrls.map((doc, index) => (
-//     <React.Fragment key={index}>
-//         {currDocIndex === index && (
-//             <iframe
-//                 className="teacher-iframe"
-//                 title={`group ${doc.docIndex}`}
-//                 src={doc.url}
-//             ></iframe>
-//         )}
-//     </React.Fragment>
-// ))}
-
-// <button onClick={() => handleDocButton("right")}>Next</button>
-// {/* display currDocIndex */}
-// <p>{currDocIndex}</p>
-// </div>
-// <div className="teacher-doc-buttons">
-// {docUrls.map((doc, index) => (
-//     <button key={index} onClick={() => setCurrDocIndex(index)}>
-//         {`Group ${doc.docIndex}`}
-//     </button>
-
